@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spice Haven Restaurant</title>
+
+<style>
+:root{
+  --orange:#ff8c42;
+  --dark-orange:#ff6a00;
+  --brown:#5a2d0c;
+  --light:#fff6ee;
+  --cream:#fffaf5;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:var(--light);
+  color:var(--brown);
+  line-height:1.6;
+}
+
+/* ---------- Navigation ---------- */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
+  z-index:1000;
+  padding:15px 0;
+}
+
+.nav-container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:700;
+  color:var(--orange);
+}
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:var(--brown);
+  text-decoration:none;
+  font-weight:600;
+  transition:color 0.3s;
+}
+
+.nav-links a:hover{
+  color:var(--orange);
+}
+
+/* ---------- Animations ---------- */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes slideIn{
+  from{opacity:0;transform:translateX(-50px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+}
+
+/* ---------- Page Structure ---------- */
+.page{
+  display:none;
+  min-height:100vh;
+  padding-top:80px;
+}
+
+.page.active{
+  display:block;
+  animation:fadeIn 0.8s ease;
+}
+
+/* ---------- Buttons ---------- */
+button,.btn{
+  background:var(--orange);
+  color:#fff;
+  border:none;
+  padding:16px 40px;
+  border-radius:50px;
+  font-size:18px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 4px 15px rgba(255,140,66,0.4);
+  display:inline-block;
+  text-decoration:none;
+}
+
+button:hover,.btn:hover{
+  background:var(--dark-orange);
+  transform:translateY(-3px);
+  box-shadow:0 6px 20px rgba(255,106,0,0.5);
+}
+
+.btn-secondary{
+  background:white;
+  color:var(--orange);
+  border:2px solid var(--orange);
+}
+
+.btn-secondary:hover{
+  background:var(--orange);
+  color:white;
+}
+
+/* ---------- Home Page ---------- */
+#home .hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  background:
+    linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1552566626-52f8b828add9") center/cover no-repeat fixed;
+  position:relative;
+  margin-top:-80px;
+}
+
+.hero-content{
+  position:relative;
+  z-index:1;
+  max-width:900px;
+  padding:0 20px;
+}
+
+.hero h1{
+  font-size:72px;
+  margin-bottom:20px;
+  color:#ffb26b;
+  text-shadow:3px 3px 6px rgba(0,0,0,0.7);
+  letter-spacing:2px;
+  animation:slideIn 1s ease;
+}
+
+.hero .tagline{
+  font-size:24px;
+  color:#ffd4a3;
+  margin-bottom:30px;
+  font-style:italic;
+  text-shadow:2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.hero p{
+  font-size:20px;
+  line-height:1.8;
+  margin-bottom:40px;
+  text-shadow:1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ---------- Content Sections ---------- */
+.content-section{
+  max-width:1200px;
+  margin:80px auto;
+  padding:0 20px;
+}
+
+.section-header{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+.section-header h2{
+  font-size:42px;
+  color:var(--brown);
+  margin-bottom:15px;
+}
+
+.section-header p{
+  font-size:18px;
+  color:#666;
+  max-width:700px;
+  margin:0 auto;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
+  margin-top:40px;
+}
+
+.feature-card{
+  background:white;
+  padding:40px 30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transition:transform 0.3s ease;
+}
+
+.feature-card:hover{
+  transform:translateY(-10px);
+}
+
+.feature-card .icon{
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.feature-card h3{
+  font-size:24px;
+  color:var(--brown);
+  margin-bottom:15px;
+}
+
+.feature-card p{
+  color:#666;
+  line-height:1.8;
+}
+
+/* ---------- About Page ---------- */
+.story-section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  margin-bottom:80px;
+}
+
+.story-image{
+  width:100%;
+  height:400px;
+  border-radius:20px;
+  object-fit:cover;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.story-content h3{
+  font-size:32px;
+  color:var(--brown);
+  margin-bottom:20px;
+}
+
+.story-content p{
+  font-size:18px;
+  color:#666;
+  line-height:1.8;
+  margin-bottom:15px;
+}
+
+/* ---------- Menu Page ---------- */
+.menu-categories{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+  gap:40px;
+}
+
+.menu-card{
+  background:white;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.menu-card-header{
+  background:var(--orange);
+  color:white;
+  padding:25px;
+  text-align:center;
+}
+
+.menu-card-header h3{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.menu-items{
+  padding:30px;
+}
+
+.menu-item{
+  margin-bottom:25px;
+  padding-bottom:20px;
+  border-bottom:1px solid #e0e0e0;
+}
+
+.menu-item:last-child{
+  border-bottom:none;
+  margin-bottom:0;
+}
+
+.menu-item h4{
+  font-size:20px;
+  color:var(--brown);
+  margin-bottom:8px;
+}
+
+.menu-item p{
+  color:#666;
+  font-size:16px;
+  line-height:1.6;
+}
+
+/* ---------- Booking Page ---------- */
+.booking-container{
+  max-width:700px;
+  margin:40px auto 80px;
+  background:white;
+  padding:50px 40px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.form-group{
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  margin-bottom:10px;
+  color:var(--brown);
+  font-weight:600;
+  font-size:16px;
+}
+
+input,select,textarea{
+  width:100%;
+  padding:14px 18px;
+  border-radius:12px;
+  border:2px solid #e0e0e0;
+  font-size:16px;
+  transition:all 0.3s ease;
+  font-family:inherit;
+}
+
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--orange);
+  box-shadow:0 0 0 3px rgba(255,140,66,0.1);
+}
+
+textarea{
+  resize:vertical;
+  min-height:100px;
+}
+
+/* ---------- Confirmation ---------- */
+.confirmation-box{
+  text-align:center;
+  max-width:700px;
+  margin:40px auto 80px;
+  background:white;
+  padding:50px 40px;
+  border-radius:25px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+.confirmation-icon{
+  font-size:80px;
+  margin-bottom:20px;
+  animation:pulse 2s infinite;
+}
+
+.detail-card{
+  background:var(--cream);
+  padding:30px;
+  border-radius:15px;
+  margin:30px 0;
+  border-left:5px solid var(--orange);
+  text-align:left;
+}
+
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #e0e0e0;
+}
+
+.detail-row:last-child{
+  border-bottom:none;
+}
+
+.detail-label{
+  font-weight:600;
+  color:var(--brown);
+}
+
+.detail-value{
+  color:#555;
+  text-align:right;
+}
+
+/* ---------- Contact Page ---------- */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  margin-top:40px;
+}
+
+.contact-info{
+  background:white;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.contact-item{
+  display:flex;
+  align-items:start;
+  margin-bottom:30px;
+}
+
+.contact-item .icon{
+  font-size:32px;
+  margin-right:20px;
+  color:var(--orange);
+}
+
+.contact-item h3{
+  font-size:20px;
+  color:var(--brown);
+  margin-bottom:8px;
+}
+
+.contact-item p{
+  color:#666;
+  line-height:1.6;
+}
+
+/* ---------- Admin ---------- */
+.admin-container{
+  max-width:1000px;
+  margin:40px auto 80px;
+  padding:0 20px;
+}
+
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.booking-count{
+  background:var(--cream);
+  padding:15px 25px;
+  border-radius:10px;
+  font-weight:600;
+  color:var(--brown);
+}
+
+.booking-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  margin-bottom:25px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+  border-left:5px solid var(--orange);
+  transition:transform 0.3s ease;
+}
+
+.booking-card:hover{
+  transform:translateX(5px);
+}
+
+.booking-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.booking-name{
+  font-size:24px;
+  font-weight:700;
+  color:var(--brown);
+}
+
+.booking-time{
+  background:var(--orange);
+  color:white;
+  padding:8px 20px;
+  border-radius:20px;
+  font-size:15px;
+}
+
+.booking-details p{
+  color:#666;
+  margin-bottom:10px;
+  line-height:1.8;
+}
+
+.booking-details strong{
+  color:var(--brown);
+}
+
+/* ---------- Mobile Menu ---------- */
+.menu-toggle{
+  display:none;
+  background:none;
+  border:none;
+  font-size:28px;
+  cursor:pointer;
+  padding:0;
+  color:var(--brown);
+}
+
+/* ---------- Responsive ---------- */
+@media(max-width:768px){
+  .menu-toggle{
+    display:block;
+  }
+  
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:white;
+    flex-direction:column;
+    padding:20px;
+    box-shadow:0 5px 10px rgba(0,0,0,0.1);
+  }
+  
+  .nav-links.active{
+    display:flex;
+  }
+  
+  .hero h1{
+    font-size:48px;
+  }
+  
+  .hero .tagline{
+    font-size:20px;
+  }
+  
+  .story-section{
+    grid-template-columns:1fr;
+  }
+  
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+  
+  .booking-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:15px;
+  }
+}
+
+@media(max-width:480px){
+  .hero h1{
+    font-size:36px;
+  }
+  
+  button,.btn{
+    padding:14px 30px;
+    font-size:16px;
+  }
+  
+  .booking-container,.confirmation-box{
+    padding:30px 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVIGATION ================= -->
+<nav>
+  <div class="nav-container">
+    <div class="logo">🍽️ Spice Haven</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="navigateTo('home')">Home</a></li>
+      <li><a href="#" onclick="navigateTo('about')">About</a></li>
+      <li><a href="#" onclick="navigateTo('menu')">Menu</a></li>
+      <li><a href="#" onclick="navigateTo('booking')">Book Table</a></li>
+      <li><a href="#" onclick="navigateTo('contact')">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ================= HOME PAGE ================= -->
+<div id="home" class="page active">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Spice Haven</h1>
+      <p class="tagline">Where Every Meal Tells a Story</p>
+      <p>
+        Experience culinary excellence in an atmosphere of warmth and elegance. 
+        Our masterfully crafted dishes celebrate tradition while embracing innovation.
+      </p>
+      <button onclick="navigateTo('booking')">Reserve Your Table</button>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Why Choose Spice Haven</h2>
+      <p>Discover what makes us the premier dining destination for those who appreciate exceptional cuisine and impeccable service</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon">👨‍🍳</div>
+        <h3>Master Chefs</h3>
+        <p>Our award-winning culinary team brings decades of experience and passion to every dish. Each chef is trained in traditional techniques while embracing modern culinary innovation.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🌿</div>
+        <h3>Fresh & Local</h3>
+        <p>We source ingredients daily from local farms and trusted suppliers. Every vegetable, herb, and spice is hand-selected to ensure peak freshness and exceptional flavor.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">✨</div>
+        <h3>Elegant Ambience</h3>
+        <p>Our thoughtfully designed space creates the perfect setting for any occasion. From intimate dinners to celebrations, every detail enhances your dining experience.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🍷</div>
+        <h3>Curated Selection</h3>
+        <p>Complement your meal with wines from our extensive collection. Our sommelier carefully selects each bottle to perfectly pair with our seasonal menu offerings.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">⭐</div>
+        <h3>Exceptional Service</h3>
+        <p>Our attentive staff is dedicated to making your visit memorable. We anticipate your needs and ensure every moment at Spice Haven exceeds your expectations.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">🎉</div>
+        <h3>Special Events</h3>
+        <p>Whether it's a birthday, anniversary, or corporate gathering, we make every celebration extraordinary with personalized menus and dedicated event coordination.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ABOUT PAGE ================= -->
+<div id="about" class="page">
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Our Story</h2>
+      <p>A journey of passion, tradition, and culinary excellence</p>
+    </div>
+
+    <div class="story-section">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0" alt="Restaurant" class="story-image">
+      <div class="story-content">
+        <h3>From Humble Beginnings</h3>
+        <p>Spice Haven was born from a dream to create a dining destination where authentic flavors meet contemporary elegance. Founded in 2015, our restaurant has grown from a small family-owned establishment to a beloved culinary landmark.</p>
+        <p>Our founder, Chef Maria Rodriguez, traveled across continents collecting recipes, techniques, and inspiration from master chefs. She returned with a vision: to create a space where traditional cooking methods honor the past while innovative presentations celebrate the future.</p>
+      </div>
+    </div>
+
+    <div class="story-section">
+      <div class="story-content">
+        <h3>Our Philosophy</h3>
+        <p>We believe food is more than sustenance—it's connection, memory, and art. Every dish we serve tells a story, whether it's a grandmother's cherished recipe or a chef's bold new creation.</p>
+        <p>Quality ingredients are our foundation. We partner with local farmers, sustainable fisheries, and artisan producers who share our commitment to excellence. Seasonal menus ensure you taste ingredients at their absolute peak.</p>
+        <p>Our kitchen is a place of creativity and respect. Traditional techniques like slow-roasting, hand-grinding spices, and aging marinades create depth of flavor impossible to rush.</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d" alt="Chef cooking" class="story-image">
+    </div>
+
+    <div class="story-section">
+      <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4" alt="Restaurant interior" class="story-image">
+      <div class="story-content">
+        <h3>The Spice Haven Experience</h3>
+        <p>Step into our restaurant and feel transported. Warm lighting, carefully curated music, and thoughtful design create an atmosphere that's both elegant and welcoming.</p>
+        <p>Our service philosophy is simple: anticipate needs, respect preferences, and create moments of delight. Whether you're a first-time visitor or a regular guest, we treat every meal as a special occasion.</p>
+        <p>We've been honored with numerous awards, but our greatest achievement is the community we've built. Families celebrate milestones here, couples mark anniversaries, and friends gather for unforgettable evenings.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MENU PAGE ================= -->
+<div id="menu" class="page">
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Our Menu</h2>
+      <p>Explore our carefully curated selection of signature dishes and seasonal specialties</p>
+    </div>
+
+    <div class="menu-categories">
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>🥗 Appetizers</h3>
+          <p>Start your journey with delightful flavors</p>
+        </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <h4>Spiced Samosas</h4>
+            <p>Crispy pastries filled with seasoned potatoes, peas, and aromatic spices. Served with mint chutney and tamarind sauce.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Tandoori Paneer Tikka</h4>
+            <p>Marinated cottage cheese grilled to perfection with bell peppers and onions. A vegetarian favorite bursting with smoky flavor.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Crispy Calamari</h4>
+            <p>Lightly battered squid rings fried until golden, served with spicy aioli and fresh lemon wedges.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>🍛 Main Courses</h3>
+          <p>Signature dishes that define our kitchen</p>
+        </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <h4>Butter Chicken</h4>
+            <p>Tender chicken simmered in a rich, creamy tomato sauce with butter and aromatic spices. Our most beloved signature dish.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Lamb Rogan Josh</h4>
+            <p>Slow-cooked lamb in a fragrant curry with cardamom, fennel, and kashmiri chilies. Served with basmati rice.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Seafood Paella</h4>
+            <p>A colorful medley of shrimp, mussels, and calamari with saffron-infused rice, peas, and roasted red peppers.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Vegetable Korma</h4>
+            <p>Seasonal vegetables in a creamy cashew and coconut sauce, delicately spiced and garnished with fresh herbs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>🍰 Desserts</h3>
+          <p>Sweet endings to remember</p>
+        </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <h4>Gulab Jamun</h4>
+            <p>Soft milk dumplings soaked in rose-scented syrup, served warm with a scoop of vanilla ice cream.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Mango Kulfi</h4>
+            <p>Traditional Indian ice cream made with condensed milk, fresh mango puree, and cardamom. Rich and creamy.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Chocolate Lava Cake</h4>
+            <p>Decadent warm chocolate cake with a molten center, served with berry compote and whipped cream.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>🍹 Beverages</h3>
+          <p>Refreshing drinks and specialty cocktails</p>
+        </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <h4>Mango Lassi</h4>
+            <p>A refreshing yogurt-based drink blended with sweet mango pulp, a hint of cardamom, and crushed ice.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Masala Chai</h4>
+            <p>Traditional spiced tea brewed with black tea leaves, milk, and a blend of warming spices including ginger and cinnamon.</p>
+          </div>
+          <div class="menu-item">
+            <h4>Signature Mocktails</h4>
+            <p>Choose from our rotating selection of house-made mocktails featuring fresh fruits, herbs, and aromatic syrups.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= BOOKING PAGE ================= -->
+<div id="booking" class="page">
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Reserve Your Table</h2>
+      <p>Secure your spot at Spice Haven and let us prepare an unforgettable dining experience for you</p>
+    </div>
+
+    <div class="booking-container">
+      <form onsubmit="handleBooking(event)">
+        <div class="form-group">
+          <label for="customerName">Full Name *</label>
+          <input type="text" id="customerName" required placeholder="Enter your full name">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" required placeholder="Your contact number">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" required placeholder="your.email@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="bookingDate">Reservation Date *</label>
+          <input type="date" id="bookingDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="timeSlot">Preferred Time *</label>
+          <select id="timeSlot" required>
+            <option value="">Choose your time slot</option>
+            <option value="11:30 AM">11:30 AM - Lunch</option>
+            <option value="12:00 PM">12:00 PM - Lunch</option>
+            <option value="1:00 PM">1:00 PM - Lunch</option>
+            <option value="2:00 PM">2:00 PM - Lunch</option>
+            <option value="6:00 PM">6:00 PM - Dinner</option>
+            <option value="7:00 PM">7:00 PM - Dinner</option>
+            <option value="8:00 PM">8:00 PM - Dinner</option>
+            <option value="9:00 PM">9:00 PM - Dinner</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="guestCount">Number of Guests *</label>
+          <input type="number" id="guestCount" min="1" max="20" required placeholder="How many people?">
+        </div>
+
+        <div class="form-group">
+          <label for="specialRequest">Special Requests (Optional)</label>
+          <textarea id="specialRequest" placeholder="Let us know about dietary requirements, allergies, celebrations, seating preferences, or any other special requests (e.g., no sugar, no salt, gluten-free, window seating, anniversary celebration)"></textarea>
+        </div>
+
+        <button type="submit">Confirm Reservation</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONFIRMATION PAGE ================= -->
+<div id="confirm" class="page">
+  <div class="content-section">
+    <div class="confirmation-box">
+      <div class="confirmation-icon">🎉</div>
+      <h2>Reservation Confirmed!</h2>
+      <p style="color:#666;font-size:18px;margin-bottom:20px">
+        Thank you for choosing Spice Haven. Your table has been reserved and we're looking forward to serving you an exceptional dining experience.
+      </p>
+      
+      <div class="detail-card" id="confirmDetails">
+        <!-- Details will be inserted here -->
+      </div>
+
+      <p style="color:#666;margin-bottom:30px">
+        A confirmation email has been sent to your inbox with all the details. If you need to modify or cancel your reservation, please contact us at <strong>(555) 123-4567</strong> or email <strong>reservations@spicehaven.com</strong>
+      </p>
+      
+      <button onclick="navigateTo('home')">Return to Home</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= CONTACT PAGE ================= -->
+<div id="contact" class="page">
+  <div class="content-section">
+    <div class="section-header">
+      <h2>Get In Touch</h2>
+      <p>We're here to answer your questions and make your dining experience perfect</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="icon">📍</div>
+          <div>
+            <h3>Visit Us</h3>
+            <p>123 Culinary Boulevard<br>Gourmet District<br>Pune, Maharashtra 411001</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon">📞</div>
+          <div>
+            <h3>Call Us</h3>
+            <p>Reservations: (555) 123-4567<br>General Inquiries: (555) 123-4568<br>Mon-Sun: 11:00 AM - 10:00 PM</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon">✉️</div>
+          <div>
+            <h3>Email Us</h3>
+            <p>reservations@spicehaven.com<br>info@spicehaven.com<br>events@spicehaven.com</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <div class="icon">🕐</div>
+          <div>
+            <h3>Operating Hours</h3>
+            <p>Lunch: 11:30 AM - 3:00 PM<br>Dinner: 6:00 PM - 10:00 PM<br>Open 7 Days a Week</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <h3 style="margin-bottom:20px">Send us a Message</h3>
+        <form onsubmit="handleContact(event)">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" required placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" required placeholder="What is this about?">
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea required placeholder="Your message here..." style="min-height:120px"></textarea>
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ADMIN LOGIN PAGE ================= -->
+<div id="login" class="page">
+  <div class="content-section">
+    <div class="booking-container">
+      <h2 style="margin-bottom:15px">🔐 Admin Access</h2>
+      <p style="text-align:center;color:#666;margin-bottom:30px">
+        This area is restricted to authorized restaurant staff only. Please enter your credentials to access the reservation management system.
+      </p>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter admin username">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password">
+      </div>
+
+      <button onclick="handleLogin()">Access Admin Panel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ADMIN PANEL PAGE ================= -->
+<div id="admin" class="page">
+  <div class="admin-container">
+    <div class="admin-header">
+      <div>
+        <h2 style="margin-bottom:5px">Admin Dashboard</h2>
+        <p style="margin:0;color:#666">Manage all restaurant reservations</p>
+      </div>
+      <div style="display:flex;gap:15px;align-items:center">
+        <div class="booking-count" id="bookingCount">Total: 0</div>
+        <button onclick="handleLogout()">Logout</button>
+      </div>
+    </div>
+    
+    <div id="bookingsList">
+      <p style="text-align:center;color:#999;padding:60px 0;background:white;border-radius:20px">No reservations yet</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Navigation
+function navigateTo(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0, 0);
+  
+  // Close mobile menu
+  document.getElementById('navLinks').classList.remove('active');
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('active');
+}
+
+// Set minimum date to today
+document.addEventListener('DOMContentLoaded', function() {
+  const today = new Date().toISOString().split('T')[0];
+  const dateInput = document.getElementById('bookingDate');
+  if(dateInput) dateInput.setAttribute('min', today);
+});
+
+// Booking
+function handleBooking(e) {
+  e.preventDefault();
+  
+  const booking = {
+    name: document.getElementById('customerName').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    date: document.getElementById('bookingDate').value,
+    time: document.getElementById('timeSlot').value,
+    guests: document.getElementById('guestCount').value,
+    request: document.getElementById('specialRequest').value,
+    id: Date.now()
+  };
+
+  let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+  bookings.push(booking);
+  localStorage.setItem('bookings', JSON.stringify(bookings));
+
+  displayConfirmation(booking);
+  e.target.reset();
+  navigateTo('confirm');
+}
+
+function displayConfirmation(booking) {
+  const detailsHtml = `
+    <div class="detail-row">
+      <span class="detail-label">Guest Name:</span>
+      <span class="detail-value">${booking.name}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Phone:</span>
+      <span class="detail-value">${booking.phone}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Email:</span>
+      <span class="detail-value">${booking.email}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Date:</span>
+      <span class="detail-value">${new Date(booking.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Time:</span>
+      <span class="detail-value">${booking.time}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Guests:</span>
+      <span class="detail-value">${booking.guests} ${booking.guests == 1 ? 'person' : 'people'}</span>
+    </div>
+    <div class="detail-row">
+      <span class="detail-label">Special Requests:</span>
+      <span class="detail-value">${booking.request || 'None'}</span>
+    </div>
+  `;
+  
+  document.getElementById('confirmDetails').innerHTML = detailsHtml;
+}
+
+// Contact
+function handleContact(e) {
+  e.preventDefault();
+  alert('Thank you for your message! We will get back to you shortly.');
+  e.target.reset();
+}
+
+// Admin
+function handleLogin() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  
+  if (username === 'admin' && password === 'spice2024') {
+    localStorage.setItem('adminLoggedIn', 'true');
+    loadAdminPanel();
+    navigateTo('admin');
+  } else {
+    alert('Invalid credentials. Please try again.');
+  }
+}
+
+function loadAdminPanel() {
+  const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+  const bookingsList = document.getElementById('bookingsList');
+  const bookingCount = document.getElementById('bookingCount');
+  
+  bookingCount.textContent = `Total: ${bookings.length}`;
+  
+  if (bookings.length === 0) {
+    bookingsList.innerHTML = '<p style="text-align:center;color:#999;padding:60px 0;background:white;border-radius:20px">No reservations yet</p>';
+    return;
+  }
+  
+  bookingsList.innerHTML = bookings.map(booking => `
+    <div class="booking-card">
+      <div class="booking-header">
+        <div class="booking-name">${booking.name}</div>
+        <div class="booking-time">${booking.time}</div>
+      </div>
+      <div class="booking-details">
+        <p><strong>📅 Date:</strong> ${new Date(booking.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p><strong>👥 Guests:</strong> ${booking.guests} ${booking.guests == 1 ? 'person' : 'people'}</p>
+        <p><strong>📞 Phone:</strong> ${booking.phone}</p>
+        <p><strong>📧 Email:</strong> ${booking.email}</p>
+        <p><strong>📝 Special Requests:</strong> ${booking.request || 'None'}</p>
+      </div>
+    </div>
+  `).reverse().join('');
+}
+
+function handleLogout() {
+  localStorage.removeItem('adminLoggedIn');
+  navigateTo('home');
+}
+
+// Check for admin hash
+if (window.location.hash === '#admin') {
+  navigateTo('login');
+}
+
+if (localStorage.getItem('adminLoggedIn') === 'true' && window.location.hash === '#admin') {
+  loadAdminPanel();
+  navigateTo('admin');
+}
+</script>
+
+</body>
+</html>
