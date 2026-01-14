@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codez - Web Development for Small Businesses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+/* Base button with horizontal gradient and slight glow */
+.email-btn {
+  position: relative;
+  display: inline-block;
+  padding: 14px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  background: linear-gradient(90deg, #4169e1, #8a2be2); /* horizontal gradient: royal blue → purple */
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(138, 43, 226, 0.3); /* subtle glow */
+}
+
+/* Hover effect with slightly stronger glow and lift */
+.email-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: linear-gradient(90deg, #3b5fc4, #7a23d8); /* slightly darker gradient on hover */
+  box-shadow: 0 0 12px rgba(138, 43, 226, 0.4); /* slightly stronger glow */
+}
+
+/* Ripple effect */
+.email-btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.4);
+  animation: ripple 600ms linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+        .gradient-text {
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .gradient-bg {
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        .gradient-bg:hover::before {
+            left: 100%;
+        }
+        .gradient-bg:active {
+            transform: scale(0.98);
+        }
+        
+        /* Primary CTA Button Animation */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 35px -5px rgba(37, 99, 235, 0.6);
+        }
+        .btn-primary:active {
+            transform: translateY(0);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.5);
+        }
+        
+        /* Secondary Button Animation */
+        .btn-secondary {
+            position: relative;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+        .btn-secondary:hover::before {
+            width: 100%;
+        }
+        .btn-secondary:hover {
+            color: white !important;
+            border-color: transparent !important;
+        }
+        
+        /* Ripple Effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Pulse Animation for Popular Badge */
+        .pulse-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        
+        /* Bounce on Hover */
+        .btn-bounce:hover {
+            animation: bounce 0.6s;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Glow Effect */
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.6),
+                        0 0 40px rgba(147, 51, 234, 0.4);
+        }
+        
+        /* Nav Link Underline Animation */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #2563eb, #9333ea);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+        body.light-mode {
+            --bg-primary: #f9fafb;
+            --bg-secondary: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --border-color: #e5e7eb;
+            --input-bg: #ffffff;
+            --input-border: #d1d5db;
+        }
+        body.dark-mode {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+            --input-bg: #374151;
+            --input-border: #4b5563;
+        }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .card {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+        .input-field {
+            background-color: var(--input-bg);
+            border-color: var(--input-border);
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body class="dark-mode min-h-screen">
+    <!-- Navigation -->
+    <nav class="card border-b sticky top-0 z-50 backdrop-blur-sm bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                    <span class="text-xl font-bold gradient-text">Codez</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="showPage('home')" class="nav-link text-secondary hover:text-blue-500 transition-colors">Home</button>
+                    <button onclick="showPage('pricing')" class="nav-link text-secondary hover:text-blue-500 transition-colors">Pricing</button>
+                    <button onclick="showPage('contact')" class="nav-link text-secondary hover:text-blue-500 transition-colors">Contact</button>
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg card border">
+                        <svg id="theme-icon-sun" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg card">
+                        <svg id="theme-icon-sun-mobile" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                        <svg id="theme-icon-moon-mobile" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
+                    </button>
+                    <button onclick="toggleMobileMenu()" id="mobile-menu-btn">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden">
+                <div class="py-4 space-y-2">
+                    <button onclick="showPage('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 text-secondary">Home</button>
+                    <button onclick="showPage('pricing'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 text-secondary">Pricing</button>
+                    <button onclick="showPage('contact'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 text-secondary">Contact</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home-page" class="page active">
+        <!-- Hero Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                    Build Your Digital Future
+                </h1>
+                <p class="text-xl md:text-2xl text-secondary mb-8 max-w-3xl mx-auto">
+                    Custom web applications tailored for small businesses. Transform your ideas into powerful digital solutions.
+                </p>
+                <button onclick="showPage('contact')" class="gradient-bg btn-primary btn-ripple text-white px-8 py-4 rounded-lg text-lg font-semibold transition-opacity">
+                    Get Started
+                </button>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">What I Offer</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card p-8 rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-3">Custom Development</h3>
+                    <p class="text-secondary">Tailored web applications built with modern technologies to meet your specific business needs.</p>
+                </div>
+                <div class="card p-8 rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-3">Fast Delivery</h3>
+                    <p class="text-secondary">Efficient development process ensuring your project launches on time without compromising quality.</p>
+                </div>
+                <div class="card p-8 rounded-xl border hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h3 class="text-2xl font-semibold mb-3">Performance First</h3>
+                    <p class="text-secondary">Optimized for speed and user experience with cutting-edge performance techniques.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="card border-y">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+                <h2 class="text-4xl font-bold mb-6">Ready to Start Your Project?</h2>
+                <p class="text-xl text-secondary mb-8">
+                    Let's discuss how I can help bring your vision to life
+                </p>
+                <button onclick="showPage('contact')" class="gradient-bg btn-primary btn-ripple text-white px-8 py-4 rounded-lg text-lg font-semibold transition-opacity">
+                    Contact Me
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Pricing Page -->
+    <div id="pricing-page" class="page">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold mb-4">Simple, Transparent Pricing</h1>
+                <p class="text-xl text-secondary">Choose the package that fits your needs</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Plan -->
+                <div class="card rounded-2xl border-2 p-8 relative">
+                    <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold">₹2,999</span>
+                    </div>
+                    <p class="text-secondary mb-6">Perfect for small businesses starting out</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Single page website</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Responsive design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Contact form</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Basic SEO optimization</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">1 month support</span>
+                        </li>
+                    </ul>
+                    <button onclick="showPage('contact')" class="w-full py-3 rounded-lg font-semibold btn-secondary card border-2 transition-all">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Professional Plan -->
+                <div class="card rounded-2xl border-2 border-blue-500 shadow-2xl scale-105 p-8 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="gradient-bg text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            Most Popular
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold">₹4,999</span>
+                    </div>
+                    <p class="text-secondary mb-6">Ideal for growing businesses</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Multi-page website</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Custom design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">CMS integration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Advanced SEO</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Payment integration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">3 months support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Analytics dashboard</span>
+                        </li>
+                    </ul>
+                    <button onclick="showPage('contact')" class="w-full py-3 rounded-lg font-semibold gradient-bg btn-glow text-white transition-all">
+                        Get Started
+                    </button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="card rounded-2xl border-2 p-8 relative">
+                    <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                    <div class="mb-4">
+                        <span class="text-4xl font-bold">₹8,000+</span>
+                        <span class="text-secondary"> starting</span>
+                    </div>
+                    <p class="text-secondary mb-6">Full-scale web applications</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Custom web application</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Database design</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">User authentication</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">API development</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Third-party integrations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">6 months support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Scalable architecture</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-secondary">Performance optimization</span>
+                        </li>
+                    </ul>
+                    <button onclick="showPage('contact')" class="w-full py-3 rounded-lg font-semibold btn-secondary card border-2 transition-all">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+
+            <div class="card rounded-2xl border p-8 mt-12">
+                <h3 class="text-2xl font-bold mb-4">Custom Solutions</h3>
+                <p class="text-secondary">
+                    Need something different? I offer custom packages tailored to your specific requirements. Contact me to discuss your project and get a personalized quote.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact-page" class="page">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="text-center mb-16">
+                <h1 class="text-5xl font-bold mb-4">Let's Work Together</h1>
+                <p class="text-xl text-secondary">Get in touch to discuss your project</p>
+            </div>
+
+           <div class="grid md:grid-cols-2 gap-12">
+
+    <!-- LEFT SIDE: Contact Actions -->
+    <div class="space-y-8">
+
+        <!-- Primary Contact Card -->
+        <div class="card rounded-2xl border p-8">
+            <h2 class="text-2xl font-bold mb-3">Start a Conversation</h2>
+            <p class="text-secondary mb-6">
+                Have a project idea or need a website? Reach out and I’ll personally respond.
+            </p>
+
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=codez.webapp@gmail.com"
+               target="_blank"
+               class="email-btn w-full text-center mb-4">
+                Email Me Directly
+            </a>
+
+            <p class="text-sm text-secondary text-center">
+                Prefer email? You’ll get a response within 24 hours.
+            </p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid sm:grid-cols-2 gap-6">
+            <div class="card rounded-xl border p-6 hover:shadow-lg transition">
+                <h3 class="font-semibold mb-2">💬 Quick Discussion</h3>
+                <p class="text-secondary text-sm">
+                    Share your idea, goals, and budget — I’ll guide you on the best approach.
+                </p>
+            </div>
+
+            <div class="card rounded-xl border p-6 hover:shadow-lg transition">
+                <h3 class="font-semibold mb-2">⚡ Fast Response</h3>
+                <p class="text-secondary text-sm">
+                    Most messages are replied to within 12–24 business hours.
+                </p>
+            </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="card rounded-xl border p-6">
+            <ul class="space-y-3 text-secondary text-sm">
+                <li>✔ Clean & modern development</li>
+                <li>✔ Mobile-first & performance focused</li>
+                <li>✔ Clear pricing & honest timelines</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE: Info (keep your existing content, slightly improved spacing) -->
+    <div class="space-y-8">
+
+        <div class="card rounded-2xl border p-8">
+            <h2 class="text-2xl font-bold mb-6">Contact Information</h2>
+
+            <div class="space-y-6">
+                <div class="flex items-start">
+                     <svg class="w-6 h-6 text-blue-500 mr-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+
+                    <div>
+                        <h3 class="font-semibold">Email</h3>
+                        <p class="text-secondary">codez.webapp@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <svg class="w-6 h-6 text-blue-500 mr-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                    <div>
+                        <h3 class="font-semibold">Location</h3>
+                        <p class="text-secondary">Remote · Worldwide</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card rounded-2xl border p-8">
+            <h2 class="text-2xl font-bold mb-3">Working Hours</h2>
+            <p class="text-secondary">
+                Monday – Saturday<br />
+                Responses within 24 hours
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+
+            
+    <!-- Footer -->
+    <footer class="card border-t mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p class="text-secondary">
+                © 2026 Codez. Empowering small businesses with custom web solutions.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Ripple effect for buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('btn-ripple') || e.target.closest('.btn-ripple')) {
+                const button = e.target.classList.contains('btn-ripple') ? e.target : e.target.closest('.btn-ripple');
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple');
+                
+                button.appendChild(ripple);
+                
+                setTimeout(() => ripple.remove(), 600);
+            }
+        });
+        
+        function showPage(pageName) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageName + '-page').classList.add('active');
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('text-blue-500');
+                link.classList.add('text-secondary');
+            });
+            
+            window.scrollTo(0, 0);
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const sunIcons = document.querySelectorAll('[id^="theme-icon-sun"]');
+            const moonIcons = document.querySelectorAll('[id^="theme-icon-moon"]');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                sunIcons.forEach(icon => icon.classList.add('hidden'));
+                moonIcons.forEach(icon => icon.classList.remove('hidden'));
+            } else {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                sunIcons.forEach(icon => icon.classList.remove('hidden'));
+                moonIcons.forEach(icon => icon.classList.add('hidden'));
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('open');
+        }
+
+        function submitForm() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && message) {
+                document.getElementById('contact-form').classList.add('hidden');
+                document.getElementById('success-message').classList.remove('hidden');
+                
+                setTimeout(() => {
+                    document.getElementById('name').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('message').value = '';
+                    document.getElementById('contact-form').classList.remove('hidden');
+                    document.getElementById('success-message').classList.add('hidden');
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
